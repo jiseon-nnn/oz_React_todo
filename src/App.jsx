@@ -9,15 +9,14 @@ function App() {
   const [isTimer, setIsTimer] = useState(false)
 
   useEffect(()=> {
-    if (currentTodo) {
+    if(currentTodo) {
       fetch(`http://localhost:3000/todo/${currentTodo}`, {
         method: "PATCH",
-        body: JSON.stringify({time: todo.find(el => el.id === currentTodo).time + 1,
+        body: JSON.stringify({
+          time: todo.find(el => el.id === currentTodo).time +1,
         }),
-      })
-      .then(res => res.json())
-      .then(res => setTodo(prev => prev.map((el)=> (el.id === currentTodo ? res : el)))
-      )
+      }).then(res => res.json())
+      .then(res => setTodo(prev => prev.map(el=> el.id === currentTodo ? res : el)))
     }
   }, [time])
 
@@ -31,7 +30,6 @@ function App() {
 
   return (
     <>
-      <h1>TO DO LIST</h1>
       <Clock /><hr />
       <Advice /><hr />
       <button className="setBtn" onClick={() => setIsTimer(prev => !prev)}>
@@ -69,8 +67,8 @@ const Advice = () => {
     <>
       {!isLoading && (
         <>
-        <div className='advice'>{data.message}</div>
-        <div className='advice'>-{data.author}-</div>
+        <div>{data.message}</div>
+        <div>- {data.author} -</div>
         </>
       )}
     </> 
@@ -90,7 +88,7 @@ const Clock = () => {
   }, [])
 
   return(
-    <div className='clock'>⌛︎ 현재 시각은 &nbsp;&nbsp;[ {time.toLocaleTimeString()} ]</div>
+    <div>{time.toLocaleTimeString()}</div>
   )
 }
 
@@ -179,10 +177,13 @@ const TodoInput = ({ setTodo }) => {
   const addTodo = () => {
     const newTodo = {
       content: inputRef.current.value,
-      time: 0,
+      time: 0
     }
     fetch("http://localhost:3000/todo", {
       method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
       body: JSON.stringify(newTodo),
     })
     .then(res=> res.json())
