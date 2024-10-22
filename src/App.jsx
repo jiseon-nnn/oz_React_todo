@@ -31,7 +31,7 @@ function App() {
 
   return (
     <>
-      <h2>TO DO LIST</h2>
+      <h1>TO DO LIST</h1>
       <Clock /><hr />
       <Advice /><hr />
       <button className="setBtn" onClick={() => setIsTimer(prev => !prev)}>
@@ -67,10 +67,10 @@ const Advice = () => {
       "https://korean-advice-open-api.vercel.app/api/advice")
   return(
     <>
-      {data && (
+      {!isLoading && (
         <>
-        <div>{data.message}</div>
-        <div>- {data.author} -</div>
+        <div className='advice'>{data.message}</div>
+        <div className='advice'>-{data.author}-</div>
         </>
       )}
     </> 
@@ -90,7 +90,7 @@ const Clock = () => {
   }, [])
 
   return(
-    <div>{time.toLocaleTimeString()}</div>
+    <div className='clock'>⌛︎ 현재 시각은 &nbsp;&nbsp;[ {time.toLocaleTimeString()} ]</div>
   )
 }
 
@@ -179,7 +179,7 @@ const TodoInput = ({ setTodo }) => {
   const addTodo = () => {
     const newTodo = {
       content: inputRef.current.value,
-      time: 0
+      time: 0,
     }
     fetch("http://localhost:3000/todo", {
       method: "POST",
