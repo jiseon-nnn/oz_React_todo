@@ -1,0 +1,33 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+button {
+  margin-left: 20px;
+}
+button:hover {
+  background-color: gainsboro;
+}
+
+li{
+  list-style: none;
+  text-align: left; 
+  padding: 10px 20px;
+  display: flex;
+}
+
+ul{
+  padding: 0;
+}
+
+.setBtn {
+  width: 100%;
+  margin: 0
+}
+
+.current {
+  background-color: rgb(230, 234, 255);
+}
